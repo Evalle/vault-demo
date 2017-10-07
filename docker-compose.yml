@@ -1,0 +1,15 @@
+version: '2'
+services:
+  vault:
+    image: vault:0.8.3
+    container_name: vault
+    ports:
+      - "127.0.0.1:8200:8200"
+    volumes:
+      - ./vault/file:/vault/file:rw
+      - ./vault/config:/vault/config:rw
+      - ./vault/pki:/vault/pki:ro
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/
+    # entrypoint: vault server -config=/vault/config/ -log-level=trace
